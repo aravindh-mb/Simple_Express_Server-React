@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="indexstyle.css">
+    <title> Simple NodeJS REST</title>
+</head>
+<body>
+    <script src="https://gist.github.com/aravindh-mb/d33b499618744ee00093a0347a46a374.js"></script>
+    <!-- internal CSS -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Inter:wght@300&display=swap');
+*{
+    font-family: 'Inter', sans-serif;
+}
+.container{
+    width:400px;
+    height:400px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color:rgb(0, 0, 0);
+    padding:20px;
+    text-align:center;
+    align-items: center;
+    justify-content: center;
+}
+.gist {
+width:500px !important;
+align-items:center;
+justify-content:center;
+}
+  .gist-file
+  .gist-data {
+    max-height: 500px;
+    max-width: 500px;
+}
+</style>
+    <div class="container">
+        <h4><span>college : </span><span id="college"></span></h4>
+        <h4><span>Name : </span><span id="name"></span></h4>
+        <h4><span>Age : </span><span id="age"></span></h4>
+        <h4><span>department : </span><span id="department"></span></h4>
+        <h4><span>Email : </span><span id="email"></span></h4>
+        <h4><span>City : </span><span id="city"></span></h4>
+        <h4><span>Zip code: </span><span id="zipcode"></span></h4>
+    </div>
+    <script>
+    // updating the server data in the the html page via DOM 
+        let name = document.getElementById('name');
+        let age = document.getElementById('age');
+        let department = document.getElementById('department');
+        let college = document.getElementById('college');
+        let email = document.getElementById('email');
+        let city = document.getElementById('city');
+        let zipcode = document.getElementById('zipcode');
+
+        function fetchData(){
+            fetch("http://localhost:3000/data")
+            .then((response) => {
+                if(!response.ok){
+                       throw Error("Couldn't fetch data")
+                }
+                return response.json()
+            }).then((response) => { 
+                console.log(response)
+                name.innerHTML = response[0].name;
+                age.innerHTML = response[0].age;
+                department.innerHTML = response[0].department;
+                college.innerHTML = response[0].college;
+                email.innerHTML = response[0].email;
+                city.innerHTML = response[0].city;
+                zipcode.innerHTML = response[0].zipcode;
+            })
+            .catch((error) => { console.log(error) });
+        }
+        fetchData();
+    </script>
+</body>
+</html>
